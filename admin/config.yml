@@ -1,0 +1,1910 @@
+backend:
+  name: git-gateway
+  accept_roles:
+    - admin
+    - editor
+  branch: main
+media_folder: theme/assets/images
+public_folder: /assets/images
+collections:
+  - name: pages
+    label: Pages
+    identifier_field: title
+    extension: md
+    create: false
+    delete: false
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    folder: cms/pages
+    fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '{{slug}}.html'
+      - &ref_0
+        label: Seo
+        name: seo
+        widget: object
+        collapsed: true
+        fields:
+          - label: Title
+            name: title
+            widget: string
+            required: false
+          - label: Description
+            name: description
+            widget: string
+            required: false
+          - label: No index
+            name: noindex
+            widget: boolean
+            default: false
+            required: false
+          - label: Open Graph Title
+            name: og:title
+            widget: string
+            required: false
+          - label: Open Graph Image
+            name: og:image
+            widget: image
+            required: false
+            media_library:
+              config:
+                multiple: false
+          - label: Twitter Title
+            name: twitter:title
+            widget: string
+            default: summary
+            required: false
+          - label: Twitter Card
+            name: twitter:card
+            widget: string
+            default: summary
+            required: false
+          - label: Twitter Site
+            name: twitter:site
+            widget: string
+            required: false
+          - label: Twitter Creator
+            name: twitter:creator
+            widget: string
+            required: false
+          - label: Twitter Image
+            name: twitter:image
+            widget: image
+            required: false
+            media_library:
+              config:
+                multiple: false
+          - label: Additional HTML tags
+            name: additional_tags
+            widget: text
+            required: false
+  - name: category
+    label: Categories
+    folder: cms/category
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Name
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: category
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[category].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - name: branch_solutions
+    label: Branch solutions
+    folder: cms/branch-solutions
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Название раздела
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: f_zagolovok
+        label: Заголовок
+        widget: string
+        required: false
+      - hint: ''
+        name: f_nazvanie-kataloga
+        label: Название каталога
+        widget: string
+        required: false
+      - hint: ''
+        name: f_izobrazhenie-produkta
+        label: Изображение (компьютерное)
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_izobrazhenie-mobilnoe
+        label: Изображение (мобильное)
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_produkty
+        label: Продукты
+        widget: relation
+        required: false
+        collection: products
+        value_field: cms/products/{{slug}}.md
+        search_fields:
+          - slug
+          - name
+        display_fields:
+          - title
+        multiple: true
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: branch-solutions
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[branch-solutions].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - name: reviews
+    label: Reviews
+    folder: cms/reviews
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Название компании
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: f_otzyv
+        label: Отзыв
+        widget: text
+        required: false
+      - hint: ''
+        name: f_dokument-izobrazhenie
+        label: Документ (изображение)
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_dokument-skachat
+        label: Документ (скачать)
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: File
+            widget: file
+            required: false
+            allow_multiple: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: reviews
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[reviews].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - name: products
+    label: Products
+    folder: cms/products
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Название товара
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - label: Преимущества
+        name: body
+        widget: markdown
+        required: false
+      - hint: ''
+        name: f_izobrazhenie-tovara
+        label: Изображение - главное
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_izobrazhenie---1-razmer
+        label: Изображение - 1 литр
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_izobrazhenie---5-litrov
+        label: Изображение - 5 литров
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_izobrazhenie---3-razmer
+        label: Изображение - 10 литров
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_izobrazhenie---4-razmer
+        label: Изображение - 20 литров
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: ''
+        name: f_izobrazhenie---5-razmer
+        label: Изображение - 215 литров
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: Выберите категорию товара
+        name: f_kategoriya-tovara
+        label: Категория товара
+        widget: relation
+        required: true
+        collection: category
+        value_field: cms/category/{{slug}}.md
+        search_fields:
+          - slug
+          - name
+        display_fields:
+          - title
+        multiple: false
+      - hint: 'Например: антифриз, тосол, концентрат ингибитора коррозии'
+        name: f_tip-tovara
+        label: Тип товара
+        widget: string
+        required: false
+      - hint: 'Например: для легковых и грузовых автомобилей'
+        name: f_prinadlezhnost
+        label: Краткое назначение
+        widget: string
+        required: false
+      - hint: 'Например: ресурс, режим эксплуатации, вовлечение и т.д.'
+        name: f_svoystvo-nazvanie-v-miniatyure-tovara
+        label: 'Свойство: тип'
+        widget: string
+        required: false
+      - hint: 'Например: до 250 000 км, до 0°С, от 5% до 10%'
+        name: f_svoystvo-znachenie-v-miniatyure-tovara
+        label: 'Свойство: значение'
+        widget: string
+        required: false
+      - hint: >-
+          Например: готовая к применению, универсальная, органическая
+          охлаждающая жидкость...
+        name: f_opisanie
+        label: Краткое описание
+        widget: text
+        required: false
+      - hint: ''
+        name: f_tovarnye-variacii
+        label: Товарные вариации
+        widget: markdown
+        required: false
+      - hint: ''
+        name: f_standarty-i-dopuski-opisanie
+        label: Отраслевые стандарты (описание)
+        widget: text
+        required: false
+      - hint: ''
+        name: f_standarty-i-dopuski-3
+        label: Отраслевые стандарты (виды двигателей)
+        widget: markdown
+        required: false
+      - hint: ''
+        name: f_podrobnoe-opisanie
+        label: Подробное описание
+        widget: markdown
+        required: false
+      - hint: ''
+        name: f_ekspluatacionnyy-resurs
+        label: Эксплуатационный ресурс
+        widget: markdown
+        required: false
+      - hint: ''
+        name: f_informaciya-ob-upakovke
+        label: Информация об упаковке
+        widget: markdown
+        required: false
+      - hint: ''
+        name: f_primenenie-i-sovmestimost
+        label: Применение и совместимость
+        widget: markdown
+        required: false
+      - hint: ''
+        name: f_dokument-no1
+        label: Документ №1
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: File
+            widget: file
+            required: false
+            allow_multiple: false
+      - hint: ''
+        name: f_dokument-no2
+        label: Документ №2
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: File
+            widget: file
+            required: false
+            allow_multiple: false
+      - hint: ''
+        name: f_dokument-no3
+        label: Документ №3
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: File
+            widget: file
+            required: false
+            allow_multiple: false
+      - hint: ''
+        name: f_dokument-no4
+        label: Документ №4
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: File
+            widget: file
+            required: false
+            allow_multiple: false
+      - hint: ''
+        name: f_dokument-no5
+        label: Документ №5
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: File
+            widget: file
+            required: false
+            allow_multiple: false
+      - hint: Добавьте файл тех. паспорта
+        name: f_tehnicheskiy-pasport
+        label: Технический паспорт
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: File
+            widget: file
+            required: false
+            allow_multiple: false
+      - hint: Выберите количество вариантов объема из предложенных ниже
+        name: f_skolko-variantov-obema
+        label: Варианты объема
+        widget: select
+        required: true
+        options:
+          - label: '0'
+            value: '0'
+          - label: '2'
+            value: '2'
+          - label: '5'
+            value: '5'
+      - hint: ''
+        name: f_dobavit-knopku-kupit-v-roznicu
+        label: Добавить кнопку "Купить в розницу"?
+        widget: boolean
+        required: false
+        default: false
+      - hint: >-
+          Включите, если хотите чтобы товар не отображался в рекомендуемых
+          товарах
+        name: f_dobavit-v-rekomenduemye
+        label: Скрыть из общих рекомендаций?
+        widget: boolean
+        required: false
+        default: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: products
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[products].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - name: post
+    label: Blog Posts
+    folder: cms/post
+    create: true
+    identifier_field: name
+    extension: md
+    slug: '{{slug}}'
+    fields:
+      - hint: ''
+        name: title
+        label: Название поста
+        widget: string
+        required: true
+      - hint: ''
+        name: created-on
+        label: Created On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: updated-on
+        label: Updated On
+        widget: datetime
+        required: false
+      - hint: ''
+        name: published-on
+        label: Published On
+        widget: datetime
+        required: false
+      - label: Содержание поста
+        name: body
+        widget: markdown
+        required: false
+      - hint: ''
+        name: f_post-summary
+        label: Краткое содержание (для миниатюры поста)
+        widget: text
+        required: false
+      - hint: ''
+        name: f_main-image
+        label: Основное изображение поста
+        widget: object
+        required: false
+        fields:
+          - hint: ''
+            name: url
+            label: Image
+            widget: image
+            required: false
+            allow_multiple: false
+          - hint: Image Alt
+            name: alt
+            label: alt
+            widget: string
+            required: false
+      - hint: Сделать пост избранным
+        name: f_featured
+        label: Избранное
+        widget: boolean
+        required: false
+        default: false
+      - label: Tags
+        widget: hidden
+        name: tags
+        default: post
+      - label: Layout
+        widget: hidden
+        name: layout
+        default: '[post].html'
+      - label: Publish Date
+        name: date
+        widget: datetime
+      - *ref_0
+  - label: Theme Settings
+    name: settings
+    identifier_field: title
+    extension: json
+    create: false
+    delete: false
+    slug: '{{slug}}'
+    editor:
+      preview: false
+    files:
+      - label: General
+        name: site
+        file: cms/_data/settings/site.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: General
+          - hint: Full domain url (needed for a correct sitemap file)
+            name: domain
+            label: Domain
+            widget: string
+            required: false
+          - name: favicon
+            label: Favicon
+            widget: image
+            allow_multiple: false
+            required: false
+          - name: apple_touch_icon
+            label: Apple Touch Icon
+            widget: image
+            allow_multiple: false
+            required: false
+          - name: header_additional_content
+            label: Additional Content Header
+            hint: Content here will be placed before </head> tag
+            widget: text
+            required: false
+          - name: footer_additional_content
+            label: Additional Content Footer
+            hint: Content here will be placed before </body> tag
+            widget: text
+            required: false
+          - name: images_optimization
+            label: Images Optimization
+            widget: object
+            collapsed: false
+            fields:
+              - label: Image Formats
+                name: formats
+                widget: select
+                multiple: true
+                options:
+                  - label: Avif
+                    value: avif
+                  - label: Webp
+                    value: webp
+              - label: Image Dimensions
+                name: dimensions
+                widget: select
+                multiple: true
+                options:
+                  - label: '500'
+                    value: 500
+                  - label: '800'
+                    value: 800
+                  - label: '1080'
+                    value: 1080
+                  - label: '1600'
+                    value: 1600
+                  - label: '2000'
+                    value: 2000
+                  - label: '2600'
+                    value: 2600
+      - label: Colors
+        name: colors
+        file: cms/_data/colors.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Colors
+      - label: Texts
+        name: texts
+        file: cms/_data/texts.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Texts
+          - hint: 'Original text: Отраслевые решения, key: 4728ffa7'
+            label: Text
+            name: 4728ffa7
+            widget: string
+          - hint: 'Original text: Корпоративным автопаркам, key: 99880d8'
+            label: Text
+            name: 99880d8
+            widget: string
+          - hint: 'Original text: Подробнее о решении, key: 7168bf78'
+            label: Text
+            name: 7168bf78
+            widget: string
+          - hint: 'Original text: Дилерам и продавцам автотоваров, key: -1db92fc5'
+            label: Text
+            name: '-1db92fc5'
+            widget: string
+          - hint: 'Original text: Промышленным предприятиям, key: -75dbde6c'
+            label: Text
+            name: '-75dbde6c'
+            widget: string
+          - hint: 'Original text: Блендинговым заводам, key: 39847ac'
+            label: Text
+            name: 39847ac
+            widget: string
+          - hint: 'Original text: Розничным потребителям, key: 5db8b21b'
+            label: Text
+            name: 5db8b21b
+            widget: string
+          - hint: 'Original text: Подробнее, key: -76b498e1'
+            label: Text
+            name: '-76b498e1'
+            widget: string
+          - hint: >-
+              Original text: Ответственный поставщик высококачественных
+              продуктов, key: 6ec954ee
+            label: Text
+            name: 6ec954ee
+            widget: string
+          - hint: 'Original text: Каталог продукции, key: 205ba2a4'
+            label: Text
+            name: 205ba2a4
+            widget: string
+          - hint: 'Original text: Автомобильные антифризы, key: -2c392f44'
+            label: Text
+            name: '-2c392f44'
+            widget: string
+          - hint: 'Original text: Перейти в каталог, key: 188a99a2'
+            label: Text
+            name: 188a99a2
+            widget: string
+          - hint: 'Original text: Индустриальный антифриз, key: 7d4c0467'
+            label: Text
+            name: 7d4c0467
+            widget: string
+          - hint: 'Original text: Теплоноситель для систем отопления, key: -5db03b3f'
+            label: Text
+            name: '-5db03b3f'
+            widget: string
+          - hint: >-
+              Original text: Водно-гликолевые растворы и хладагенты, key:
+              78c379c0
+            label: Text
+            name: 78c379c0
+            widget: string
+          - hint: 'Original text: Гликолевые ингибиторы коррозии, key: 7df4f613'
+            label: Text
+            name: 7df4f613
+            widget: string
+          - hint: 'Original text: База знаний, key: 6096217c'
+            label: Text
+            name: 6096217c
+            widget: string
+          - hint: 'Original text: Контакты, key: -c4cb6a4'
+            label: Text
+            name: '-c4cb6a4'
+            widget: string
+          - hint: 'Original text: +7 (800) 101 50 93, key: -41499fea'
+            label: Text
+            name: '-41499fea'
+            widget: string
+          - hint: 'Original text: Обратная связь, key: -46d8faf0'
+            label: Text
+            name: '-46d8faf0'
+            widget: string
+          - hint: 'Original text: Telegram, key: -4d3cb2df'
+            label: Text
+            name: '-4d3cb2df'
+            widget: string
+          - hint: 'Original text: Вконтакте, key: 6e64b738'
+            label: Text
+            name: 6e64b738
+            widget: string
+          - hint: 'Original text: WhatsApp, key: 772c5592'
+            label: Text
+            name: 772c5592
+            widget: string
+          - hint: 'Original text: Youtube, key: 281bc303'
+            label: Text
+            name: 281bc303
+            widget: string
+          - hint: 'Original text: 8 800 101 50 93, key: 2abfcb41'
+            label: Text
+            name: 2abfcb41
+            widget: string
+          - hint: 'Original text: обратная связь, key: -b1fc710'
+            label: Text
+            name: '-b1fc710'
+            widget: string
+          - hint: 'Original text: Меню, key: 1ee890a'
+            label: Text
+            name: 1ee890a
+            widget: string
+          - hint: >-
+              Original text: Оставьте заявку и мы свяжемся с вами в ближайшее
+              время., key: -48d08fd1
+            label: Text
+            name: '-48d08fd1'
+            widget: string
+          - hint: 'Original text: Отправить, key: -2654ae65'
+            label: Text
+            name: '-2654ae65'
+            widget: string
+          - hint: >-
+              Original text: Нажимая на кнопку «Отправить», вы соглашаетесь с ,
+              key: 78895cb7
+            label: Text
+            name: 78895cb7
+            widget: string
+          - hint: 'Original text: политикой конфиденциальности, key: -1618634d'
+            label: Text
+            name: '-1618634d'
+            widget: string
+          - hint: 'Original text:  и , key: fb08'
+            label: Text
+            name: fb08
+            widget: string
+          - hint: 'Original text: обработки персональных данных, key: 3b4099ba'
+            label: Text
+            name: 3b4099ba
+            widget: string
+          - hint: 'Original text: Спасибо, ваша заявка принята!, key: -7feefdd8'
+            label: Text
+            name: '-7feefdd8'
+            widget: string
+          - hint: 'Original text: Ошибка отправки формы!, key: -7b190600'
+            label: Text
+            name: '-7b190600'
+            widget: string
+          - hint: >-
+              Original text: производство антифризов для автомобилей, key:
+              79afb619
+            label: Text
+            name: 79afb619
+            widget: string
+          - hint: >-
+              Original text: Собственные разработки ингибиторов коррозии,
+              постпродажное сопровождение и поддержка, key: -1c068a50
+            label: Text
+            name: '-1c068a50'
+            widget: string
+          - hint: >-
+              Original text: Реальный опыт эксплуатации на разных видах техники
+              и оборудования, key: 5c389c79
+            label: Text
+            name: 5c389c79
+            widget: string
+          - hint: >-
+              Original text: МАГНА – российский разработчик и производитель,
+              key: 2cdb21c7
+            label: Text
+            name: 2cdb21c7
+            widget: string
+          - hint: >-
+              Original text: Разработка, внедрение гликолевых ингибиторов
+              коррозии и производство антифризов различного назначения, key:
+              -206137c4
+            label: Text
+            name: '-206137c4'
+            widget: text
+          - hint: >-
+              Original text: Обладаем технологией, полнотой знаний и гарантируем
+              стабильность качества продукции во времени, key: 21e8cf51
+            label: Text
+            name: 21e8cf51
+            widget: text
+          - hint: 'Original text: 680, key: d1ae'
+            label: Text
+            name: d1ae
+            widget: string
+          - hint: 'Original text: тонн в месяц, key: -7bd5c8f3'
+            label: Text
+            name: '-7bd5c8f3'
+            widget: string
+          - hint: >-
+              Original text: Производственная мощность предприятия, key:
+              1e655675
+            label: Text
+            name: '1e655675'
+            widget: string
+          - hint: 'Original text: 0, key: 30'
+            label: Text
+            name: '30'
+            widget: string
+          - hint: 'Original text: рекламаций, key: 36aa9519'
+            label: Text
+            name: 36aa9519
+            widget: string
+          - hint: >-
+              Original text: Связанных с качеством продукции за 5 лет работы,
+              key: 57b8bf65
+            label: Text
+            name: 57b8bf65
+            widget: string
+          - hint: 'Original text: 273000, key: 587144e2'
+            label: Text
+            name: '587144e2'
+            widget: string
+          - hint: 'Original text: единиц техники и оборудования, key: 55cbcee9'
+            label: Text
+            name: 55cbcee9
+            widget: string
+          - hint: >-
+              Original text: Работают на продуктах компании МАГНА, key:
+              -5be222d7
+            label: Text
+            name: '-5be222d7'
+            widget: string
+          - hint: 'Original text: В каталог, key: 730ac2be'
+            label: Text
+            name: 730ac2be
+            widget: string
+          - hint: 'Original text: Вся продукция сертифицирована, key: 1f97306'
+            label: Text
+            name: 1f97306
+            widget: string
+          - hint: 'Original text: 76 продуктов, key: 7700cac7'
+            label: Text
+            name: 7700cac7
+            widget: string
+          - hint: >-
+              Original text: Приглашаем к сотрудничеству партнеров на выгодных
+              условиях. Гибкие объемы поставок и индивидуальные условия., key:
+              35788edb
+            label: Text
+            name: 35788edb
+            widget: text
+          - hint: 'Original text: No items found., key: 3d503d2b'
+            label: Text
+            name: 3d503d2b
+            widget: string
+          - hint: 'Original text: 100+ партнеров, key: -2d62f29d'
+            label: Text
+            name: '-2d62f29d'
+            widget: string
+          - hint: >-
+              Original text: От федеральных дилерских центров до небольших
+              производств и магазинов по всей России, key: -27d3ab
+            label: Text
+            name: '-27d3ab'
+            widget: string
+          - hint: 'Original text: Читать все, key: 2f30588f'
+            label: Text
+            name: 2f30588f
+            widget: string
+          - hint: >-
+              Original text: Поможем вам подобрать подходящую продукцию, key:
+              3dff543d
+            label: Text
+            name: 3dff543d
+            widget: string
+          - hint: 'Original text: Категория продукции, key: -53d9ea25'
+            label: Text
+            name: '-53d9ea25'
+            widget: string
+          - hint: 'Original text: info@magnaural.ru, key: 618d67b5'
+            label: Text
+            name: 618d67b5
+            widget: string
+          - hint: 'Original text: Политика конфиденциальности, key: -529a4372'
+            label: Text
+            name: '-529a4372'
+            widget: string
+          - hint: >-
+              Original text: Согласие на обработку персональных данных, key:
+              2c471f45
+            label: Text
+            name: 2c471f45
+            widget: string
+          - hint: 'Original text: Сделано в, key: -3159cad6'
+            label: Text
+            name: '-3159cad6'
+            widget: string
+          - hint: 'Original text: Главная, key: -4f11bae'
+            label: Text
+            name: '-4f11bae'
+            widget: string
+          - hint: 'Original text: Вернуться назад, key: 48792ec3'
+            label: Text
+            name: 48792ec3
+            widget: string
+          - hint: 'Original text: Другие статьи, key: 607408a6'
+            label: Text
+            name: 607408a6
+            widget: string
+          - hint: 'Original text: Каталог товаров, key: -5e6c413a'
+            label: Text
+            name: '-5e6c413a'
+            widget: string
+          - hint: >-
+              Original text: Thank you! Your submission has been received!, key:
+              5a0ea5a1
+            label: Text
+            name: 5a0ea5a1
+            widget: string
+          - hint: >-
+              Original text: Oops! Something went wrong while submitting the
+              form., key: -7c112e99
+            label: Text
+            name: '-7c112e99'
+            widget: string
+          - hint: 'Original text: Назначение, key: 1e100955'
+            label: Text
+            name: '1e100955'
+            widget: string
+          - hint: 'Original text: Скачать технический паспорт, key: -22fc56b0'
+            label: Text
+            name: '-22fc56b0'
+            widget: string
+          - hint: 'Original text: Объем, key: 3bfd27be'
+            label: Text
+            name: 3bfd27be
+            widget: string
+          - hint: 'Original text: 20, key: 63e'
+            label: Text
+            name: 63e
+            widget: string
+          - hint: 'Original text: 216, key: c1d7'
+            label: Text
+            name: c1d7
+            widget: string
+          - hint: 'Original text: 1, key: 31'
+            label: Text
+            name: '31'
+            widget: string
+          - hint: 'Original text: 5, key: 35'
+            label: Text
+            name: '35'
+            widget: string
+          - hint: 'Original text: 10, key: 61f'
+            label: Text
+            name: 61f
+            widget: string
+          - hint: 'Original text: .pdf, key: 169a04'
+            label: Text
+            name: 169a04
+            widget: string
+          - hint: 'Original text: Купить оптом, key: -13c53835'
+            label: Text
+            name: '-13c53835'
+            widget: string
+          - hint: 'Original text: Описание, key: -4078108c'
+            label: Text
+            name: '-4078108c'
+            widget: string
+          - hint: 'Original text: Преимущества, key: -695d622a'
+            label: Text
+            name: '-695d622a'
+            widget: string
+          - hint: 'Original text: Отраслевые стандарты, key: 132a7894'
+            label: Text
+            name: 132a7894
+            widget: string
+          - hint: 'Original text: Товарные вариации, key: -610b7c15'
+            label: Text
+            name: '-610b7c15'
+            widget: string
+          - hint: 'Original text: Применение и совместимость, key: 12246ea'
+            label: Text
+            name: 12246ea
+            widget: string
+          - hint: 'Original text: Документы, key: 6cc4339a'
+            label: Text
+            name: 6cc4339a
+            widget: string
+          - hint: 'Original text: Эксплуатационный ресурс, key: -771f13b7'
+            label: Text
+            name: '-771f13b7'
+            widget: string
+          - hint: 'Original text: Информация об упаковке, key: 70a7a4ca'
+            label: Text
+            name: 70a7a4ca
+            widget: string
+          - hint: 'Original text: Технический лист описания, key: 3dba3e85'
+            label: Text
+            name: 3dba3e85
+            widget: string
+          - hint: 'Original text: Лабораторные испытания, key: -73c8663a'
+            label: Text
+            name: '-73c8663a'
+            widget: string
+          - hint: 'Original text: Декларация о соответствии, key: -5e130b6a'
+            label: Text
+            name: '-5e130b6a'
+            widget: string
+          - hint: 'Original text: Паспорт безопасности, key: 2a182ea0'
+            label: Text
+            name: 2a182ea0
+            widget: string
+          - hint: 'Original text: Отзывы о продукте, key: 6967dd92'
+            label: Text
+            name: 6967dd92
+            widget: string
+          - hint: 'Original text: Смотреть отзыв, key: 2b5bb398'
+            label: Text
+            name: 2b5bb398
+            widget: string
+          - hint: 'Original text: Ассортимент продукции, key: 6dc785fe'
+            label: Text
+            name: 6dc785fe
+            widget: string
+          - hint: >-
+              Original text: Оставьте заявку и мы свяжемся с вами в ближайшее
+              время для уточнения деталей заказа., key: 22a8eb71
+            label: Text
+            name: 22a8eb71
+            widget: string
+          - hint: 'Original text: Предыдущая, key: -33e2efd2'
+            label: Text
+            name: '-33e2efd2'
+            widget: string
+          - hint: 'Original text: Следующая, key: -650f5cdc'
+            label: Text
+            name: '-650f5cdc'
+            widget: string
+          - hint: "Original text: Офис \_/ \_г. Березовский, ул. Чапаева, дом 43, офис 303, key: -21fda272"
+            label: Text
+            name: '-21fda272'
+            widget: string
+          - hint: "Original text: Производство \_/ \_г. Березовский, Западная промзона, 46А, key: -748a4bdc"
+            label: Text
+            name: '-748a4bdc'
+            widget: string
+          - hint: 'Original text: Реквизиты, key: -642b16cb'
+            label: Text
+            name: '-642b16cb'
+            widget: string
+          - hint: 'Original text: По вопросам сотрудничества, key: -1be849'
+            label: Text
+            name: '-1be849'
+            widget: string
+          - hint: 'Original text: partners@magnaural.ru, key: -4c4a4d28'
+            label: Text
+            name: '-4c4a4d28'
+            widget: string
+          - hint: 'Original text: По общим вопросам, key: 2f0a10e3'
+            label: Text
+            name: 2f0a10e3
+            widget: string
+          - hint: >-
+              Original text: Заполните заявку и мы свяжемся с вами ближайжее
+              время, key: 7d9bcb8e
+            label: Text
+            name: 7d9bcb8e
+            widget: string
+          - hint: 'Original text: Оставить заявку, key: 76e173c4'
+            label: Text
+            name: 76e173c4
+            widget: string
+          - hint: 'Original text: Продукция, key: 55dc990f'
+            label: Text
+            name: 55dc990f
+            widget: string
+          - hint: 'Original text: Условия, key: 544ffac8'
+            label: Text
+            name: 544ffac8
+            widget: string
+          - hint: 'Original text: Отзывы, key: 448f1231'
+            label: Text
+            name: 448f1231
+            widget: string
+          - hint: 'Original text: для потребителя, key: 1046a98e'
+            label: Text
+            name: 1046a98e
+            widget: string
+          - hint: 'Original text: Конкурентноспособный продукт, key: -37dfffd2'
+            label: Text
+            name: '-37dfffd2'
+            widget: string
+          - hint: >-
+              Original text: Мы уже несколько лет сотрудничаем с этим
+              производителем и регулярно закупаем у них антифриз для нашего
+              автосервиса. Качество продукции всегда, key: -69e6d5a
+            label: Text
+            name: '-69e6d5a'
+            widget: text
+          - hint: 'Original text: 01, key: 601'
+            label: Text
+            name: '601'
+            widget: string
+          - hint: 'Original text: Стабильность качества и поставок, key: 5fa75b66'
+            label: Text
+            name: 5fa75b66
+            widget: string
+          - hint: >-
+              Original text: Мы уже несколько лет сотрудничаем с этим
+              производителем и регулярно закупаем у них антифриз, key: 9ef219e
+            label: Text
+            name: 9ef219e
+            widget: text
+          - hint: 'Original text: 02, key: 602'
+            label: Text
+            name: '602'
+            widget: string
+          - hint: 'Original text: Эффективная система мотивации, key: 804d7b3'
+            label: Text
+            name: 804d7b3
+            widget: string
+          - hint: 'Original text: 03, key: 603'
+            label: Text
+            name: '603'
+            widget: string
+          - hint: >-
+              Original text: Собственное контрактное производство, key:
+              -3ed9ffa9
+            label: Text
+            name: '-3ed9ffa9'
+            widget: string
+          - hint: >-
+              Original text: Мы уже несколько лет сотрудничаем с производителем
+              и регулярно закупаем у них антифриз для нашего автосервиса, key:
+              887bde9
+            label: Text
+            name: 887bde9
+            widget: text
+          - hint: 'Original text: 04, key: 604'
+            label: Text
+            name: '604'
+            widget: string
+          - hint: 'Original text: Пост-продажное сопровождение, key: -564c42e7'
+            label: Text
+            name: '-564c42e7'
+            widget: string
+          - hint: 'Original text: 05, key: 605'
+            label: Text
+            name: '605'
+            widget: string
+          - hint: 'Original text: Условия работы, key: 2ce8837e'
+            label: Text
+            name: 2ce8837e
+            widget: string
+          - hint: 'Original text: Гибкая форма оплаты, key: -7a8df148'
+            label: Text
+            name: '-7a8df148'
+            widget: string
+          - hint: >-
+              Original text: Предназначен для интервалов замены не менее 650 000
+              км (8 000 моточасов) в грузовиках и автобусах, 250 000 км (2 000
+              моточасов) в легковых автомобилях и 32 000 моточасов (6 лет) в
+              стационарных газовых двигателях., key: -3dafc6a8
+            label: Text
+            name: '-3dafc6a8'
+            widget: text
+          - hint: 'Original text: Организация доставки, key: 761013c1'
+            label: Text
+            name: 761013c1
+            widget: string
+          - hint: >-
+              Original text: Lorem ipsum dolor sit amet, consectetur adipiscing
+              elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+              aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+              laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint
+              occaecat cupidatat non proident, sunt in culpa qui officia
+              deserunt mollit anim id est laborum., key: 361deee7
+            label: Text
+            name: 361deee7
+            widget: text
+          - hint: 'Original text: Маркетинговая поддержка, key: -5507b9f8'
+            label: Text
+            name: '-5507b9f8'
+            widget: string
+          - hint: 'Original text: Отсутствие контрактных обязательств, key: -d8eadf0'
+            label: Text
+            name: '-d8eadf0'
+            widget: string
+          - hint: 'Original text: Повышение компетенций менеджеров, key: 607f64ab'
+            label: Text
+            name: 607f64ab
+            widget: string
+          - hint: 'Original text: Постоянный контроль остатков, key: -df52edc'
+            label: Text
+            name: '-df52edc'
+            widget: string
+          - hint: 'Original text: Оставьте заявку на сотрудничество, key: 34f61476'
+            label: Text
+            name: 34f61476
+            widget: string
+          - hint: 'Original text: Заявка на сотрудничество, key: -48620fbf'
+            label: Text
+            name: '-48620fbf'
+            widget: string
+      - label: Links
+        name: links
+        file: cms/_data/links.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Links
+          - hint: 'Original link: /, key: 2f'
+            label: Link
+            name: 2f
+            widget: string
+          - hint: 'Original link: /#branch, key: -47f838a'
+            label: Link
+            name: '-47f838a'
+            widget: string
+          - hint: >-
+              Original link: /branch-solutions/korporativnym-avtoparkam, key:
+              1e276e27
+            label: Link
+            name: 1e276e27
+            widget: string
+          - hint: >-
+              Original link: /branch-solutions/dileram-i-prodavcam-avtotovarov,
+              key: 39d99737
+            label: Link
+            name: 39d99737
+            widget: string
+          - hint: >-
+              Original link: /branch-solutions/promyshlennym-predpriyatiyam,
+              key: -5064bfbb
+            label: Link
+            name: '-5064bfbb'
+            widget: string
+          - hint: >-
+              Original link: /branch-solutions/blendingovym-zavodam, key:
+              5958bee0
+            label: Link
+            name: 5958bee0
+            widget: string
+          - hint: >-
+              Original link: /branch-solutions/roznichnym-potrebitelyam, key:
+              -76261dde
+            label: Link
+            name: '-76261dde'
+            widget: string
+          - hint: 'Original link: #, key: 23'
+            label: Link
+            name: '23'
+            widget: string
+          - hint: 'Original link: /products#all, key: 77c13b1'
+            label: Link
+            name: 77c13b1
+            widget: string
+          - hint: 'Original link: /products#automotive-antifreeze, key: -5454cb9f'
+            label: Link
+            name: '-5454cb9f'
+            widget: string
+          - hint: 'Original link: /products#industrial-antifreeze, key: -46fb19a3'
+            label: Link
+            name: '-46fb19a3'
+            widget: string
+          - hint: >-
+              Original link: /products#coolant-for-heating-systems, key:
+              -3fdcf3fa
+            label: Link
+            name: '-3fdcf3fa'
+            widget: string
+          - hint: >-
+              Original link:
+              /products#aqueous-glycol-solutions-and-refrigerants, key: 4b71e170
+            label: Link
+            name: 4b71e170
+            widget: string
+          - hint: >-
+              Original link: /products#glycolic-corrosion-inhibitor, key:
+              2af24fe
+            label: Link
+            name: 2af24fe
+            widget: string
+          - hint: 'Original link: /blog/, key: 55cb89fe'
+            label: Link
+            name: 55cb89fe
+            widget: string
+          - hint: 'Original link: /contact/, key: 16bdc13e'
+            label: Link
+            name: 16bdc13e
+            widget: string
+          - hint: 'Original link: tel:88001015093, key: -10a2bdf8'
+            label: Link
+            name: '-10a2bdf8'
+            widget: string
+          - hint: 'Original link: tel:+78001015093, key: 70c66c1a'
+            label: Link
+            name: 70c66c1a
+            widget: string
+          - hint: 'Original link: #branch, key: -16d6c07b'
+            label: Link
+            name: '-16d6c07b'
+            widget: string
+          - hint: 'Original link: https://smkoil.ru/, key: 2086a1ce'
+            label: Link
+            name: 2086a1ce
+            widget: string
+          - hint: 'Original link: https://ural-nrg.ru/, key: 4de9b40b'
+            label: Link
+            name: 4de9b40b
+            widget: string
+          - hint: 'Original link: https://akrond.ru/, key: -55ec7736'
+            label: Link
+            name: '-55ec7736'
+            widget: string
+          - hint: 'Original link: https://trakoil.ru/, key: 1c0215d9'
+            label: Link
+            name: 1c0215d9
+            widget: string
+          - hint: 'Original link: https://utneft.ru/, key: 38eff551'
+            label: Link
+            name: 38eff551
+            widget: string
+          - hint: 'Original link: https://www.rns-ural.ru/, key: 64b9e602'
+            label: Link
+            name: 64b9e602
+            widget: string
+          - hint: 'Original link: mailto:info@magnaural.ru, key: -c59d353'
+            label: Link
+            name: '-c59d353'
+            widget: string
+          - hint: 'Original link: https://www.cultbrand.ru/, key: 21fdf825'
+            label: Link
+            name: 21fdf825
+            widget: string
+          - hint: 'Original link: /products/, key: -6535e004'
+            label: Link
+            name: '-6535e004'
+            widget: string
+          - hint: 'Original link: mailto:partners@magnaural.ru, key: 51733bd0'
+            label: Link
+            name: 51733bd0
+            widget: string
+          - hint: 'Original link: #products, key: 986fe87'
+            label: Link
+            name: 986fe87
+            widget: string
+          - hint: 'Original link: #advantages, key: -7adfd1f5'
+            label: Link
+            name: '-7adfd1f5'
+            widget: string
+          - hint: 'Original link: #conditions, key: 23c8a71b'
+            label: Link
+            name: 23c8a71b
+            widget: string
+          - hint: 'Original link: #feedback, key: 39f118a8'
+            label: Link
+            name: 39f118a8
+            widget: string
+      - label: Images
+        name: images
+        file: cms/_data/images.json
+        fields:
+          - label: Title
+            name: title
+            widget: hidden
+            default: Images
+          - label: Image
+            name: i29af6b4d
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i134d9120
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: i6afb74fe
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-7df53ddf'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-177df441'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-2a865f5d'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 1c01211d
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-3e847062'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-22b94bf3'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-34614736'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-34532fb5'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-34451834'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-a9c7fdc'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-a8e685b'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-a8050da'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-a723959'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-a6421d8'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-4d60fac4'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-351e9873'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-520fa8ab'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-6cbdc395'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-7a10f207'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 317f733b
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-7434684f'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 34e8bb33
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: '-1f8299d7'
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 294d94d
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+          - label: Image
+            name: 1883429f
+            widget: object
+            fields:
+              - name: url
+                label: Image Url
+                widget: image
+                allow_multiple: false
+                required: false
+              - name: alt
+                label: Image Alt
+                widget: string
+                required: false
+publish_mode: editorial_workflow
