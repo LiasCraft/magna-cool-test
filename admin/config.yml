@@ -1379,6 +1379,12 @@ collections:
             label: Text
             name: '-48620fbf'
             widget: string
+          - hint: >-
+              Original text: производство антифризов, теплоносителей и
+              хладагентов, key: 415e4dbb
+            label: Text
+            name: 415e4dbb
+            widget: string
       - label: Links
         name: links
         file: cms/_data/links.json
