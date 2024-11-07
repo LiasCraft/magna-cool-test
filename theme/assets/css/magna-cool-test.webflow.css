@@ -839,7 +839,7 @@ blockquote {
 }
 
 .drop {
-  color: var(--light-blue-b);
+  color: var(--black-blue);
   flex: 1;
   height: 3.375rem;
 }
@@ -3505,8 +3505,8 @@ blockquote {
 .hero-button {
   grid-column-gap: 1rem;
   grid-row-gap: 1rem;
-  background-color: var(--light-blue-b);
-  color: var(--blue);
+  background-color: var(--black-blue);
+  color: var(--light-blue-b);
   cursor: pointer;
   border-radius: 6.25rem;
   justify-content: center;

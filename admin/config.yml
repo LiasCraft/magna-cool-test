@@ -928,10 +928,10 @@ collections:
             name: '-7b190600'
             widget: string
           - hint: >-
-              Original text: производство антифризов для автомобилей, key:
-              79afb619
+              Original text: разработка лучших антифризов и теплоносителей, key:
+              48394fbd
             label: Text
-            name: 79afb619
+            name: 48394fbd
             widget: string
           - hint: >-
               Original text: Собственные разработки ингибиторов коррозии,
@@ -1379,12 +1379,6 @@ collections:
             label: Text
             name: '-48620fbf'
             widget: string
-          - hint: >-
-              Original text: производство антифризов, теплоносителей и
-              хладагентов, key: 415e4dbb
-            label: Text
-            name: 415e4dbb
-            widget: string
       - label: Links
         name: links
         file: cms/_data/links.json
@@ -1759,19 +1753,6 @@ collections:
                 required: false
           - label: Image
             name: '-a6421d8'
-            widget: object
-            fields:
-              - name: url
-                label: Image Url
-                widget: image
-                allow_multiple: false
-                required: false
-              - name: alt
-                label: Image Alt
-                widget: string
-                required: false
-          - label: Image
-            name: '-4d60fac4'
             widget: object
             fields:
               - name: url
