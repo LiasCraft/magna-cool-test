@@ -24,8 +24,6 @@
 * {
   -webkit-tap-highlight-color: transparent;
 }
-.udesly-banner {
-    transform: translateX(-300px);
 </style>
   <!--  Phone Field Style  -->
   <style>
@@ -98,6 +96,10 @@
 .iti__divider {
     border-bottom: 1px solid #2e2e2e !important;
 }
+</style>
+  <style>
+.udesly-banner {
+    transform: translateX(-300px) !important;
 </style>
 {{ settings.site.header_additional_content }}{%- include "partials/_site-css-variables" -%}<style>.w-video.w-embed {
             aspect-ratio: 16 / 9;
@@ -290,8 +292,8 @@ touchpadSupport : true,
   <!--  [Attributes by Finsweet] CMS Filter  -->
   <script async="" src="https://cdn.jsdelivr.net/npm/@finsweet/attributes-cmsfilter@1/cmsfilter.js"></script>
   <style>
-  .udesly-banner {
-    transform: translateX(-300px);
+.udesly-banner {
+    transform: translateX(-300px) !important;
 </style>
 
 <script src="/assets/js/udesly-11ty.min.js" async="" defer=""></script>{{ settings.site.footer_additional_content }}<script type="module">import*as UdeslyBanner from"https://cdn.jsdelivr.net/npm/udesly-ad-banner@0.0.4/loader/index.js";UdeslyBanner.defineCustomElements(),document.body.append(document.createElement("udesly-banner"));</script></body></html>
